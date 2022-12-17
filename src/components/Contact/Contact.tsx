@@ -12,7 +12,7 @@ function Contact ({ cellphone, image, name }: Props) {
     <Container>
       <img src={image} alt="imagem do contato" />
 
-    
+
     </Container>
   )
 }

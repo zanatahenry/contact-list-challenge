@@ -13,6 +13,7 @@ function List () {
 
   return (
     <ContactList>
+      <p>Todos os contatos</p>
       {Array.isArray(contacts) && contacts.map(contact => (
         <Contact 
           cellphone={contact.number}
