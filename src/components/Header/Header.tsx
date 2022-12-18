@@ -1,11 +1,14 @@
 import React from 'react'
 import { ContactsHeader } from './styles'
+import Search from '../Search/Search'
+import PlusIcon from '../Icons/PlusIcon'
 
 function Header () {
   return (
     <ContactsHeader>
-      <h1>input</h1>
-      <h1>botão</h1>
+      <Search/>
+      {/* <img src='../../assets/plus-icon.svg' /> */}
+      <PlusIcon/>
     </ContactsHeader>
   )
 }

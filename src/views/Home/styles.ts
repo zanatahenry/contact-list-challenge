@@ -13,7 +13,7 @@ export const MainSection = styled.section `
 
 export const ContactsContainer = styled.div`
   width: 650px;
-  height: 600px;
+  height: 650px;
   border-radius: 8px;
 
   display: flex;
