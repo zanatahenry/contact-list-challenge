@@ -22,8 +22,8 @@ function List ({ onClick }: Props) {
   ]
 
   return (
-    <ContactList>
-      <p>Todos os contatos</p>
+    <ContactList className='contact-list'>
+      <p className='contact-list__title'>Todos os contatos</p>
       {Array.isArray(contacts) && contacts.map(contact => (
         <Contact 
           onClick={onClick}

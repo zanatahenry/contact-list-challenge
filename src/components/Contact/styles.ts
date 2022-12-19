@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const Container = styled.div`
   width: 100%;
-  margin: 10px 0;
+  margin: 5px 0;
   display: flex;
   align-items: center;
   padding: 10px 5px;
@@ -27,5 +27,4 @@ export const Container = styled.div`
 export const InfosContainer = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
 `

@@ -9,7 +9,7 @@ function Home () {
   const [ selector, setSelector ] = useState<'list' | 'create'>('list')
 
   return (
-    <MainSection>
+    <MainSection className='home'>
       <ContactsContainer>
         {selector === 'create' && (
           <h1>a</h1>
@@ -26,7 +26,7 @@ function Home () {
             />
 
             <Footer>
-              <p>Você possui <b>1900</b> contatos</p>
+              <p className='home__footer-text'>Você possui <b className='home__footer-text--bold'>1900</b> contatos</p>
             </Footer>
           </Fragment>
         )}

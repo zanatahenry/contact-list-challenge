@@ -1,0 +1,23 @@
+.recent-contact {
+  &__title {
+    color: white;
+    font-weight: bold;
+    position: relative;
+
+    &::after {
+      content: "";
+      position: absolute;
+      width: 45px;
+      height: 3px;
+      border-radius: 3px;
+      bottom: -5px;
+      left: 0;
+      background-color: #3FA0FE;
+    }
+  }
+
+  &__name {
+    color: white;
+    font-weight: bold;
+  }
+}
