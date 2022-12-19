@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const ContactsFooter = styled.div`
   width: 100%;
-  height: 34px;
+  height: 64px;
 
   display: flex;
   align-items: center;

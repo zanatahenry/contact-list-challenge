@@ -19,14 +19,14 @@ function RecentContacts () {
   ]
 
   return (
-    <Container>
-      <p>Recentes</p>
+    <Container className="recent-contact">
+      <p className="recent-contact__title">Recentes</p>
 
       <ContactContainer>
         {Array.isArray(contacts) && contacts.map(contact => (
           <Recents>
             <Avatar src={contact.image} alt="imagem do contato recente" />
-            <p>{contact.name.split(' ')[0]}</p>
+            <p className="recent-contact__name">{contact.name.split(' ')[0]}</p>
           </Recents>
         ))}
       </ContactContainer>
