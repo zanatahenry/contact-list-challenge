@@ -1,14 +1,13 @@
 import React, { DetailedHTMLProps } from "react";
-import { Image } from './styles'
 
 type Props = {
   src: string
   alt: string
 }
 
-function Avatar ({...rest}: Props) {
+function Avatar ({...rest}: DetailedHTMLProps<React.ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>) {
   return (
-    <Image {...rest} />
+    <img className="contact-avatar" {...rest} />
   )
 }
 

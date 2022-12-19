@@ -11,12 +11,12 @@ type Props = {
 
 function Contact ({ cellphone, image, name, onClick }: Props) {
   return (
-    <Container onClick={onClick}>
+    <Container className='contact' onClick={onClick}>
       <Avatar src={image} alt="imagem do contato" />
 
       <InfosContainer>
-        <p>{name}</p>
-        <p>{cellphone}</p>
+        <p className='contact__name' >{name}</p>
+        <p className='contact__cellphone'>{cellphone}</p>
       </InfosContainer>
     </Container>
   )

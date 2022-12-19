@@ -18,6 +18,7 @@ export const ContactContainer = styled.div`
   display: flex;
   width: 100%;
   overflow: auto;
+  margin-top: 5px;
   gap: 30px;
 
   &::-webkit-scrollbar {
@@ -36,7 +37,14 @@ export const Recents = styled.div`
   align-items: center;
   justify-content: center;
 
-  gap: 10px;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(55, 54, 57, 0.29);
+  }
 `
 
 export const Image = styled.img`
