@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import List from '../../components/List/List'
 import RecentContacts from '../../components/RecentsContacts/RecentContacts'
+import CreateContact from '../CreateContact/CreateContact'
 
 function Home () {
   const [ selector, setSelector ] = useState<'list' | 'create'>('list')
@@ -12,7 +13,7 @@ function Home () {
     <MainSection className='home'>
       <ContactsContainer>
         {selector === 'create' && (
-          <h1>a</h1>
+          <CreateContact/>
         )}
 
         {selector === 'list' && (
@@ -26,7 +27,9 @@ function Home () {
             />
 
             <Footer>
-              <p className='home__footer-text'>Você possui <b className='home__footer-text--bold'>1900</b> contatos</p>
+              <p className='home__footer-text'>
+                Você possui <b className='home__footer-text--bold'>1900</b> contatos
+              </p>
             </Footer>
           </Fragment>
         )}
