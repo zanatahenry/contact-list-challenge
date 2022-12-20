@@ -1,9 +1,10 @@
 import React from 'react'
 import { Container, InfosContainer } from './styles'
 import Avatar from '../Avatar/Avatar'
+import { emptyImage } from '../../utils/globals'
 
 type Props = {
-  image: string
+  image?: string
   name: string
   cellphone: string
   onClick(): void
@@ -12,7 +13,7 @@ type Props = {
 function Contact ({ cellphone, image, name, onClick }: Props) {
   return (
     <Container className='contact' onClick={onClick}>
-      <Avatar src={image} alt="imagem do contato" />
+      <Avatar src={image ? image : emptyImage } alt="imagem do contato" />
 
       <InfosContainer>
         <p className='contact__name' >{name}</p>

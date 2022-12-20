@@ -1,8 +1,12 @@
 import React, { Fragment, MutableRefObject, useRef, useState } from 'react'
-import { Container, ToHome, FormContainer } from './styles'
+import { Container, ToHome, FormContainer, GoBackButton } from './styles'
 import { Formik } from 'formik'
 import Input from '../../components/Input/Input'
 import PersonImage from './components/PersonImage/PersonImage'
+import ContactsRepository from '../../repositories/ContactsRepository'
+import { IContact } from '../../components/List/listInterfaces'
+import { getBase64 } from '../../utils/globals'
+import GoBackIcon from '../../components/Icons/GoBackIcon'
 
 type Props = {
   onCancel(): void
@@ -10,24 +14,32 @@ type Props = {
 
 function CreateContact ({ onCancel }: Props) {
   const [ image, setImage ] = useState<string>('')
+  const [ fileURL, setFileURL ] = useState<string>('')
 
   const formRef: MutableRefObject<any> = useRef(null)
   const attachFile: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-  function getBase64 (file: FileList) {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file[0])
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = (error) => reject(error)
-    })
+  async function onSubmit (values: Omit<IContact, 'image'>) {
+    const data: IContact = {
+      ...values,
+      image: image
+    }
+
+    try {
+      const response = await ContactsRepository.create(data)
+      console.log(response)
+    } catch (err) {
+      console.log(err)
+    }
   }
 
   function handleFile (e: React.ChangeEvent<HTMLInputElement>) {
     if (e.target.files) {
       const file = e.target.files[0]
       if (file.type.includes('image/')) {
-        getBase64(e.target.files).then(base64 => setImage(base64 as string))
+        getBase64(e.target.files).then(base64 => {
+          setImage(base64 as string)
+        })
         
       }
     }
@@ -36,14 +48,17 @@ function CreateContact ({ onCancel }: Props) {
   return (
     <Container>
         <ToHome>
-          <p onClick={onCancel}>voltar</p>
+          <GoBackButton onClick={onCancel}>
+            <GoBackIcon/>
+            voltar
+          </GoBackButton>
         </ToHome>
 
         <FormContainer>
           <Formik
             innerRef={formRef}
-            initialValues={{name: ''}}
-            onSubmit={(values) => console.log(values)}
+            initialValues={{name: '', email: '', phone: '', address: ''}}
+            onSubmit={(values) => onSubmit(values)}
           >
             {({handleChange, handleBlur, handleSubmit, values, errors}) => (
               <div className='form-create'>
