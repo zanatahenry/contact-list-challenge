@@ -17,8 +17,8 @@ export const recentsSlice = createSlice({
   name: 'recents',
   initialState,
   reducers: {
-    setRecents: (state, { payload }: PayloadAction<IContact>) => {
-      state.recents = [ payload, ...state.recents ]
+    setRecents: (state, { payload }: PayloadAction<IContact[]>) => {
+      state.recents = payload
     },
 
     setTotalContacts: (state, { payload }: PayloadAction<{totalContacts: number}>) => {

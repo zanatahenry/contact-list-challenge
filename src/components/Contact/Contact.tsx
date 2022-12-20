@@ -2,6 +2,7 @@ import React from 'react'
 import { Container, InfosContainer } from './styles'
 import Avatar from '../Avatar/Avatar'
 import { emptyImage } from '../../utils/globals'
+import mask from '../../utils/masks'
 
 type Props = {
   image?: string
@@ -17,7 +18,7 @@ function Contact ({ cellphone, image, name, onClick }: Props) {
 
       <InfosContainer>
         <p className='contact__name' >{name}</p>
-        <p className='contact__cellphone'>{cellphone}</p>
+        <p className='contact__cellphone'>{mask(String(cellphone), 'cell', true)}</p>
       </InfosContainer>
     </Container>
   )

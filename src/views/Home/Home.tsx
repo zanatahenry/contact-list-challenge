@@ -8,12 +8,25 @@ import List from '../../components/List/List'
 import RecentContacts from '../../components/RecentsContacts/RecentContacts'
 import CreateContact from '../CreateContact/CreateContact'
 import { setRecents, setSelectedContact } from '../../store/modules/contacts/contacts'
+import { IContact } from '../../components/List/listInterfaces'
 
 function Home () {
   const [ selector, setSelector ] = useState<'list' | 'create'>('list')
 
   const contacts = useContacts()
   const dispatch = useDispatch()
+
+  // function recentsContacts (contact: IContact) {
+  //   const hasSameContact = contacts.recents.find(ctt => contact.id === ctt.id)
+  //   if (!hasSameContact && contacts.recents.length < 3) return [contact, ...contacts.recents]
+
+  //   if (!hasSameContact && contacts.recents.length === 3) {
+  //     const removeLastItem = [contact,...contacts.recents].splice(-1, 1)
+  //     console.log(removeLastItem)
+  //     // return [contact, ...removeLastItem]c
+  //   }
+  //   return [...contacts.recents]
+  // }
 
   return (
     <MainSection className='home'>
@@ -43,7 +56,7 @@ function Home () {
             <List 
               onClick={(contact) => {
                 setSelector('create')
-                dispatch(setRecents(contact))
+                dispatch(setRecents([contact, ...contacts.recents]))
                 dispatch(setSelectedContact({selectedContact: contact}))
               }} 
             />
