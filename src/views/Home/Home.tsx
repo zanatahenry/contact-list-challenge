@@ -5,7 +5,6 @@ import { useContacts } from '../../hooks'
 import Footer from '../../components/Footer/Footer'
 import Header from '../../components/Header/Header'
 import List from '../../components/List/List'
-import RecentContacts from '../../components/RecentsContacts/RecentContacts'
 import CreateContact from '../CreateContact/CreateContact'
 import { setRecents, setSelectedContact } from '../../store/modules/contacts/contacts'
 
@@ -14,18 +13,6 @@ function Home () {
 
   const contacts = useContacts()
   const dispatch = useDispatch()
-
-  // function recentsContacts (contact: IContact) {
-  //   const hasSameContact = contacts.recents.find(ctt => contact.id === ctt.id)
-  //   if (!hasSameContact && contacts.recents.length < 3) return [contact, ...contacts.recents]
-
-  //   if (!hasSameContact && contacts.recents.length === 3) {
-  //     const removeLastItem = [contact,...contacts.recents].splice(-1, 1)
-  //     console.log(removeLastItem)
-  //     // return [contact, ...removeLastItem]c
-  //   }
-  //   return [...contacts.recents]
-  // }
 
   return (
     <MainSection className='home'>
@@ -46,8 +33,6 @@ function Home () {
         {selector === 'list' && (
           <Fragment>
             <Header onClick={() => setSelector('create')} />
-            
-            {Array.isArray(contacts.recents) && contacts.recents.length > 0 && <RecentContacts recents={contacts.recents}/>}
             
             <List 
               onClick={(contact) => {
