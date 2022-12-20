@@ -1,25 +1,29 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ContactList } from './styles'
 import Contact from '../Contact/Contact'
-import RecentContacts from '../RecentsContacts/RecentContacts'
+import ContactsRepository from '../../repositories/ContactsRepository'
+import { IContact } from './listInterfaces'
 
 type Props = {
   onClick(): void
 }
 
 function List ({ onClick }: Props) {
-  const contacts = [
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-    {name: 'Henry Zanata', number: '(15) 98144-8561', image: 'https://source.unsplash.com/random'},
-  ]
+  const [ contacts, setContacts ] = useState<IContact[]>([])
+
+  useEffect(() => {
+    async function getContacts () {
+      try {
+        const response = await ContactsRepository.getAll()
+        const list = response.data
+        setContacts(list)
+      } catch (err) {
+        console.log(err)
+      }
+    }
+
+    getContacts()
+  }, [])
 
   return (
     <ContactList className='contact-list'>
@@ -27,7 +31,7 @@ function List ({ onClick }: Props) {
       {Array.isArray(contacts) && contacts.map(contact => (
         <Contact 
           onClick={onClick}
-          cellphone={contact.number}
+          cellphone={contact.phone}
           name={contact.name}
           image={contact.image}
         />
