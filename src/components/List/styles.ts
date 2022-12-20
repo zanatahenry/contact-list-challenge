@@ -11,13 +11,4 @@ export const ContactList = styled.div`
   align-items: flex-start;
   justify-content: start;
   flex-direction: column;
-
-  &::-webkit-scrollbar {
-    background-color: transparent;
-    width: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: #646060;
-  }
 `

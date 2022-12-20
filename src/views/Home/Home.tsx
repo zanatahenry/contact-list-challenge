@@ -13,12 +13,15 @@ function Home () {
     <MainSection className='home'>
       <ContactsContainer>
         {selector === 'create' && (
-          <CreateContact/>
+          <CreateContact onCancel={() => setSelector('list')}/>
         )}
 
         {selector === 'list' && (
           <Fragment>
-            <Header/>
+            <Header
+              onSearch={(v) => console.log(v)}
+              onClick={() => setSelector('create')}
+            />
             
             <RecentContacts/>
 

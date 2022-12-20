@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { ReactNode } from 'react'
 import { ContactsHeader, CreateButton } from './styles'
-import Search from '../Search/Search'
+import Input from '../Input/Input'
 
 
-function Header () {
+type Props = {
+  onSearch(value: string): void
+  onClick(): void
+}
+
+function Header ({ onSearch, onClick }: Props) {
   return (
     <ContactsHeader>
-      <Search/>
-      <CreateButton>NOVO</CreateButton>
+      <Input 
+        onChange={(event) => onSearch(event.target.value)}
+        mask='cep' 
+        placeholder="Pesquise seus contatos" 
+      />
+
+      <CreateButton onClick={onClick}>NOVO</CreateButton>
     </ContactsHeader>
   )
 }
