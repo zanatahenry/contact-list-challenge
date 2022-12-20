@@ -24,6 +24,10 @@ function Home () {
               setSelector('list')
               dispatch(setSelectedContact({selectedContact: undefined}))
             }}
+            onSuccess={() => {
+              setSelector('list')
+              dispatch(setSelectedContact({selectedContact: undefined}))
+            }}
           />
         )}
 

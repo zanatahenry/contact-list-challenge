@@ -25,4 +25,8 @@ export const ContactsContainer = styled.div`
   backdrop-filter: blur(1.6px);
   -webkit-backdrop-filter: blur(1.6px);
   border: 1px solid rgba(55, 54, 57, 0.3);
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `

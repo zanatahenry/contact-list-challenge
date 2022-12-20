@@ -1,5 +1,6 @@
 export type CreateContactProps = {
   onCancel(): void
+  onSuccess(): void
 }
 
 export interface ISendContacts {

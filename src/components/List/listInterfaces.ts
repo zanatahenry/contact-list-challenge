@@ -4,5 +4,5 @@ export interface IContact {
   phone: string
   address: string
   image: string
-  id: string
+  id: number
 }

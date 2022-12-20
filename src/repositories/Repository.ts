@@ -51,7 +51,7 @@ export class Repository<Type = any> {
     )
   }
 
-  async find (id: string, config?: AxiosRequestConfig): Promise<IResponseBase<{ [key: string]: Type }>> {
+  async find (id: number, config?: AxiosRequestConfig): Promise<IResponseBase<{ [key: string]: Type }>> {
     return Repository.handle<{ [key: string]: Type }>(() =>
       this.api.get(`${this.path}/${id}`, config)
     )
@@ -63,9 +63,9 @@ export class Repository<Type = any> {
     )
   }
 
-  async update (id: string, data: Type, config?: AxiosRequestConfig): Promise<IResponseBase> {
+  async update (id: number, data: Type, config?: AxiosRequestConfig): Promise<IResponseBase> {
     return Repository.handle(() =>
-      this.api.patch(`${this.path}/${id}`, data, config)
+      this.api.put(`${this.path}/${id}`, data, config)
     )
   }
 
