@@ -69,9 +69,9 @@ export class Repository<Type = any> {
     )
   }
 
-  async block (id: string, config?: AxiosRequestConfig): Promise<IResponseBase> {
+  async delete (id: number): Promise<IResponseBase> {
     return Repository.handle(() =>
-      this.api.patch(`${this.path}/${id}/blocked`, {}, config)
+      this.api.delete(`${this.path}/${id}`)
     )
   }
 }

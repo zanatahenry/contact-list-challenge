@@ -5,6 +5,7 @@ export const Container = styled.div`
   margin: 5px 0;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 10px 5px;
   
   cursor: pointer;
@@ -26,5 +27,15 @@ export const Container = styled.div`
 
 export const InfosContainer = styled.div`
   display: flex;
-  flex-direction: column;
+  align-items: center;
+
+  & div {
+    display: flex;
+    flex-direction: column;
+  }
+`
+export const ButtonsContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
 `

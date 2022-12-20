@@ -10,4 +10,21 @@
     font-size: 14px;
     font-weight: 500;
   }
+
+  &__delete-button {
+    width: 30px;
+    height: 30px;
+    background-color: #E83F5B;
+    border: none;
+    outline: none;
+    border-radius: 6px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+
+    & svg {
+      fill: white;
+    }
+  }
 } 

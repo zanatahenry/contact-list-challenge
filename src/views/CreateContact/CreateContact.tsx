@@ -9,6 +9,7 @@ import GoBackIcon from '../../components/Icons/GoBackIcon'
 import { CreateContactProps, ISendContacts } from './createContactInterfaces'
 import { useContacts } from '../../hooks'
 import * as Yup from 'yup'
+import swal from '../../utils/swal'
 
 function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
   const [ image, setImage ] = useState<string>('')
@@ -17,7 +18,6 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
   const formRef: MutableRefObject<any> = useRef(null)
   const attachFile: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-  
   const createSchema = Yup.object().shape({
     name: Yup.string()
       .required('Campo obrigatório.'),
@@ -38,11 +38,12 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
     }
 
     try {
-      const response = await ContactsRepository.create(data)
+      await ContactsRepository.create(data)
+      swal.basic({title: 'Sucesso!', text: 'Contato salvo com sucesso!', icon: 'success'})
       onSuccess()
       formRef.current.resetForm()
     } catch (err) {
-      console.log(err)
+      swal.basic({title: 'Atenção!', text: 'Falha ao salvar contato!', icon: 'warning'})
     }
   }
 
@@ -54,11 +55,13 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
 
     try {
       if (!contacts.selectedContact) throw new Error('Identificador do contato não encontrado!')
-      const response = await ContactsRepository.update(contacts.selectedContact.id, data)
+      await ContactsRepository.update(contacts.selectedContact.id, data)
       formRef.current.resetForm()
+      swal.basic({title: 'Sucesso!', text: 'Contato atualizado com sucesso!', icon: 'success'})
       onSuccess()
     } catch (err) {
-      console.log(err)
+      swal.basic({title: 'Atenção!', text: 'Falha ao atualizar contato!', icon: 'warning'})
+
     }
   }
 
