@@ -7,20 +7,16 @@ import ContactsRepository from '../../repositories/ContactsRepository'
 import { IContact } from '../../components/List/listInterfaces'
 import { getBase64 } from '../../utils/globals'
 import GoBackIcon from '../../components/Icons/GoBackIcon'
+import { CreateContactProps, ISendContacts } from './createContactInterfaces'
 
-type Props = {
-  onCancel(): void
-}
-
-function CreateContact ({ onCancel }: Props) {
+function CreateContact ({ onCancel }: CreateContactProps) {
   const [ image, setImage ] = useState<string>('')
-  const [ fileURL, setFileURL ] = useState<string>('')
 
   const formRef: MutableRefObject<any> = useRef(null)
   const attachFile: MutableRefObject<HTMLInputElement | null> = useRef(null)
 
-  async function onSubmit (values: Omit<IContact, 'image'>) {
-    const data: IContact = {
+  async function onSubmit (values: Omit<ISendContacts, 'image'>) {
+    const data: ISendContacts = {
       ...values,
       image: image
     }

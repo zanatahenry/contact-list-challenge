@@ -1,7 +1,7 @@
 
 import { Repository } from './Repository'
 import api from '../services/api'
-import { IContact } from '../components/List/listInterfaces'
+import { ISendContacts } from 'views/CreateContact/createContactInterfaces'
 
-class ContactsRepository extends Repository<IContact> {}
+class ContactsRepository extends Repository<ISendContacts> {}
 export default new ContactsRepository({ api, path: '/contacts' })
