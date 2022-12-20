@@ -4,9 +4,14 @@ export type CreateContactProps = {
 }
 
 export interface ISendContacts {
-  name: string
-  email: string
-  phone: string
-  address: string
+  name: string;
+  email: string;
+  phone: string;
+  cep: string;
+  neighborhood: string;
+  city: string;
+  street: string;
+  number: string;
+  additional: string;
   image: string
 }

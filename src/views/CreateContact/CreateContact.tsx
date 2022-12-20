@@ -10,6 +10,7 @@ import { CreateContactProps, ISendContacts } from './createContactInterfaces'
 import { useContacts } from '../../hooks'
 import * as Yup from 'yup'
 import swal from '../../utils/swal'
+import resources from '../../consumer/resources'
 
 function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
   const [ image, setImage ] = useState<string>('')
@@ -24,11 +25,21 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
     email: Yup.string()
       .email('Email inválido.')
       .required('Campo obrigatório.'),
-    address: Yup.string()
+    cep: Yup.string()
     .required('Campo obrigatório.'), 
     phone: Yup.string()
     .min(15, 'Telefone inválido')
     .required('Campo obrigatório.'), 
+    neighborhood: Yup.string()
+    .required('Campo obrigatório.'),
+    city: Yup.string()
+    .required('Campo obrigatório.'),
+    street: Yup.string()
+    .required('Campo obrigatório.'),
+    number: Yup.string()
+    .required('Campo obrigatório.'),
+    additional: Yup.string()
+    .required('Campo obrigatório.'),
   })
 
   async function onSubmit (values: Omit<ISendContacts, 'image'>) {
@@ -76,6 +87,21 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
       }
     }
   }
+
+  async function getAddress (cep: string) {
+    const param = cep.replace(/\D/g, '')
+    if (param.length === 8) {
+      try {
+        const response = await resources.address(param)
+        formRef.current.setFieldValue("neighborhood", response.data.bairro)
+        formRef.current.setFieldValue("city", response.data.localidade)
+        formRef.current.setFieldValue("street", response.data.logradouro)
+        formRef.current.setFieldValue("additional", response.data.complemento)
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
   
   useEffect(() => {
     async function getCurrentContact (id: number) {
@@ -86,9 +112,14 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
         if (contact.name) formRef.current.setFieldValue("name", contact.name)
         if (contact.email) formRef.current.setFieldValue("email", contact.email)
         if (contact.phone) formRef.current.setFieldValue("phone", contact.phone)
-        if (contact.address) formRef.current.setFieldValue("address", contact.address)
+        if (contact.cep) formRef.current.setFieldValue("cep", contact.cep)
+        if (contact.neighborhood) formRef.current.setFieldValue("neighborhood", contact.neighborhood)
+        if (contact.city) formRef.current.setFieldValue("city", contact.city)
+        if (contact.street) formRef.current.setFieldValue("street", contact.street)
+        if (contact.additional) formRef.current.setFieldValue("additional", contact.additional)
+        if (contact.number) formRef.current.setFieldValue("number", contact.number)
         if (contact.image) setImage(contact.image)
-
+        
       } catch (err) {
         console.log(err)
       }
@@ -109,7 +140,7 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
         <FormContainer>
           <Formik
             innerRef={formRef}
-            initialValues={{name: '', email: '', phone: '', address: ''}}
+            initialValues={{name: '', email: '', phone: '', cep: '', neighborhood: '', city: '', street: '', number: '', additional: ''}}
             validationSchema={createSchema}
             validateOnChange={false}
             validateOnBlur={false}
@@ -152,10 +183,31 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
                   <label className='form-create__error-label'>{errors.phone}</label>
                 </div>
 
-                <div className='form-create__input-container'>
+                <div className='form-create__input-container form-create__input-container--address'>
                   <label className='form-create__label'>Endereço</label>
-                  <Input placeholder='Digite o Endereço' value={values.address} onChange={handleChange('address')} />
-                  <label className='form-create__error-label'>{errors.address}</label>
+                  <Input 
+                    placeholder='Digite o cep' 
+                    mask='cep' 
+                    value={values.cep} 
+                    onChange={handleChange('cep')} 
+                    onBlur={(e) => getAddress(e.target.value)}
+                  />
+                  <label className='form-create__error-label'>{errors.cep}</label>
+
+                  <Input placeholder='Digite o logradouro' value={values.city} onChange={handleChange('city')} />
+                  <label className='form-create__error-label'>{errors.city}</label>
+
+                  <Input placeholder='Digite o logradouro' value={values.street} onChange={handleChange('street')} />
+                  <label className='form-create__error-label'>{errors.street}</label>
+
+                  <Input placeholder='Digite o número' value={values.number} onChange={handleChange('number')} />
+                  <label className='form-create__error-label'>{errors.number}</label>
+
+                  <Input placeholder='Digite o complemento' value={values.additional} onChange={handleChange('additional')} />
+                  <label className='form-create__error-label'>{errors.additional}</label>
+
+                  <Input placeholder='Digite o bairro' value={values.neighborhood} onChange={handleChange('neighborhood')} />
+                  <label className='form-create__error-label'>{errors.neighborhood}</label>
                 </div>
 
                 <div className='form-create__submit-container'>

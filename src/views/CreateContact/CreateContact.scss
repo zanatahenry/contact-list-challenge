@@ -8,6 +8,10 @@
   &__input-container {
     display: flex;
     flex-direction: column;
+
+    &--address {
+      gap: 10px;
+    }
   }
 
   &__image-container {
