@@ -5,6 +5,7 @@ export interface IContactReducer {
   recents: Array<IContact>
   totalContacts: number
   selectedContact?: IContact
+  searchValue?: string
 }
 
 const initialState: IContactReducer = {
@@ -27,14 +28,19 @@ export const recentsSlice = createSlice({
 
     setSelectedContact: (state, {payload}: PayloadAction<{selectedContact?: IContact}>) => {
       state.selectedContact = payload.selectedContact
-    }
+    },
+
+    setSearchValue: (state, {payload}: PayloadAction<{searchValue?: string}>) => {
+      state.searchValue = payload.searchValue
+    },
   }
 })
 
 export const {
   setRecents,
   setTotalContacts,
-  setSelectedContact
+  setSelectedContact,
+  setSearchValue
 } = recentsSlice.actions
 
 export default recentsSlice.reducer

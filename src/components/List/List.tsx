@@ -6,6 +6,7 @@ import { IContact } from './listInterfaces'
 import { setTotalContacts } from '../../store/modules/contacts/contacts'
 import { useDispatch } from 'react-redux'
 import swal from '../../utils/swal'
+import { useContacts } from '../../hooks'
 
 type Props = {
   onClick(contact: IContact): void
@@ -13,7 +14,9 @@ type Props = {
 
 function List ({ onClick }: Props) {
   const [ contacts, setContacts ] = useState<IContact[]>([])
+
   const dispatch = useDispatch()
+  const contactsStored = useContacts()
 
   async function getContacts () {
     try {
@@ -53,9 +56,15 @@ function List ({ onClick }: Props) {
     })
   }
 
+  function searchValues (values: string) {
+    const filteredContacts = contacts.filter(contact => contact.name.includes(values) || contact.phone.includes(values))
+    setContacts(filteredContacts)
+  }
+
   useEffect(() => {
-    getContacts()
-  }, [])
+    if (contactsStored.searchValue) searchValues(contactsStored.searchValue)
+    else getContacts()
+  }, [contactsStored.searchValue])
 
   return (
     <ContactList className='contact-list'>

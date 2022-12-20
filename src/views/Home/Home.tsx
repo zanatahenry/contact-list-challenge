@@ -8,7 +8,6 @@ import List from '../../components/List/List'
 import RecentContacts from '../../components/RecentsContacts/RecentContacts'
 import CreateContact from '../CreateContact/CreateContact'
 import { setRecents, setSelectedContact } from '../../store/modules/contacts/contacts'
-import { IContact } from '../../components/List/listInterfaces'
 
 function Home () {
   const [ selector, setSelector ] = useState<'list' | 'create'>('list')
@@ -46,10 +45,7 @@ function Home () {
 
         {selector === 'list' && (
           <Fragment>
-            <Header
-              onSearch={(v) => console.log(v)}
-              onClick={() => setSelector('create')}
-            />
+            <Header onClick={() => setSelector('create')} />
             
             {Array.isArray(contacts.recents) && contacts.recents.length > 0 && <RecentContacts recents={contacts.recents}/>}
             
