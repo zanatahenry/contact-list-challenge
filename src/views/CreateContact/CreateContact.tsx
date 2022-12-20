@@ -8,6 +8,7 @@ import { getBase64 } from '../../utils/globals'
 import GoBackIcon from '../../components/Icons/GoBackIcon'
 import { CreateContactProps, ISendContacts } from './createContactInterfaces'
 import { useContacts } from '../../hooks'
+import * as Yup from 'yup'
 
 function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
   const [ image, setImage ] = useState<string>('')
@@ -15,6 +16,20 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
   const contacts = useContacts()
   const formRef: MutableRefObject<any> = useRef(null)
   const attachFile: MutableRefObject<HTMLInputElement | null> = useRef(null)
+
+  
+  const createSchema = Yup.object().shape({
+    name: Yup.string()
+      .required('Campo obrigatório.'),
+    email: Yup.string()
+      .email('Email inválido.')
+      .required('Campo obrigatório.'),
+    address: Yup.string()
+    .required('Campo obrigatório.'), 
+    phone: Yup.string()
+    .min(15, 'Telefone inválido')
+    .required('Campo obrigatório.'), 
+  })
 
   async function onSubmit (values: Omit<ISendContacts, 'image'>) {
     const data: ISendContacts = {
@@ -92,6 +107,9 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
           <Formik
             innerRef={formRef}
             initialValues={{name: '', email: '', phone: '', address: ''}}
+            validationSchema={createSchema}
+            validateOnChange={false}
+            validateOnBlur={false}
             onSubmit={(values) => contacts.selectedContact ? onUpdate(values) : onSubmit(values)}
           >
             {({handleChange, handleSubmit, values, errors}) => (
@@ -116,21 +134,25 @@ function CreateContact ({ onCancel, onSuccess }: CreateContactProps) {
                 <div className='form-create__input-container'>
                   <label className='form-create__label'>Nome</label>
                   <Input placeholder='Digite o nome' value={values.name} onChange={handleChange('name')} />
+                  <label className='form-create__error-label'>{errors.name}</label>
                 </div>
 
                 <div className='form-create__input-container'>
                   <label className='form-create__label'>E-mail</label>
                   <Input placeholder='Digite o E-mail' value={values.email} onChange={handleChange('email')} />
+                  <label className='form-create__error-label'>{errors.email}</label>
                 </div>
                 
                 <div className='form-create__input-container'>
                   <label className='form-create__label'>Telefone</label>
-                  <Input placeholder='Digite o telefone' value={values.phone} onChange={handleChange('phone')} />
+                  <Input placeholder='Digite o telefone' mask='cell' value={values.phone} onChange={handleChange('phone')} />
+                  <label className='form-create__error-label'>{errors.phone}</label>
                 </div>
 
                 <div className='form-create__input-container'>
                   <label className='form-create__label'>Endereço</label>
                   <Input placeholder='Digite o Endereço' value={values.address} onChange={handleChange('address')} />
+                  <label className='form-create__error-label'>{errors.address}</label>
                 </div>
 
                 <div className='form-create__submit-container'>
